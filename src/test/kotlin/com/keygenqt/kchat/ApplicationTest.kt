@@ -1,13 +1,10 @@
-package com.keygenqt
+package com.keygenqt.kchat
 
-import io.ktor.routing.*
+import com.keygenqt.kchat.plugins.configureRouting
 import io.ktor.http.*
-import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.request.*
-import kotlin.test.*
 import io.ktor.server.testing.*
-import com.keygenqt.plugins.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ApplicationTest {
     @Test

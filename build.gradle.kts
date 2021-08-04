@@ -1,26 +1,27 @@
-val ktor_version: String by project
-val kotlin_version: String by project
-val logback_version: String by project
-
 plugins {
     application
-    kotlin("jvm") version "1.5.21"
+    kotlin("jvm")
 }
 
-group = "com.keygenqt"
+group = "com.keygenqt.kchat"
 version = "0.0.1"
+
 application {
-    mainClass.set("com.keygenqt.ApplicationKt")
+    mainClass.set("com.keygenqt.kchat.ApplicationKt")
 }
 
 repositories {
     mavenCentral()
 }
 
+val ktorVersion: String by project
+val kotlinVersion: String by project
+val logbackVersion: String by project
+
 dependencies {
-    implementation("io.ktor:ktor-server-core:$ktor_version")
-    implementation("io.ktor:ktor-server-netty:$ktor_version")
-    implementation("ch.qos.logback:logback-classic:$logback_version")
-    testImplementation("io.ktor:ktor-server-tests:$ktor_version")
-    testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlin_version")
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("io.ktor:ktor-websockets:$ktorVersion")
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
 }
