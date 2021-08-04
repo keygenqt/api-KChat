@@ -1,4 +1,4 @@
-KChat
+KChat (backend)
 ===================
 
 ![picture](data/preview.png)
