@@ -9,6 +9,7 @@ import io.ktor.websocket.*
 import java.util.*
 
 fun Application.configureRouting() {
+    install(WebSockets)
     routing {
         val connections = Collections.synchronizedSet<Connection?>(LinkedHashSet())
         webSocket("/chat") {
