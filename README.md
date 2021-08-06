@@ -7,25 +7,24 @@ Chat completely built on kotlin Ktor [client](https://github.com/keygenqt/androi
 
 ## Platform Architecture
 
-### Front-End
-* Framework - [Ktor](https://ktor.io/)
-* Template -  [kotlinx.html](https://github.com/Kotlin/kotlinx.html)
-
-![picture](data/f-preview.png)
-
-### Back-End
+### Back-End / Front-End
 * Framework - [Ktor](https://ktor.io/)
 * Protocol - [WebSocket (chat)](https://en.wikipedia.org/wiki/WebSocket), [HTTP (REST API)](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
 * Data Base - [MySQL](https://www.mysql.com/)
 * Migration - [Flyway](https://flywaydb.org/)
+* DI - [Koin](https://insert-koin.io/)
+* Template -  [kotlinx.html](https://github.com/Kotlin/kotlinx.html)
+
+![picture](data/f-preview.png)
 
 ### Android Client
-* HTTP client - [Ktor](https://ktor.io/)
 * MVVM - [Guide to app architecture](https://developer.android.com/jetpack/guide)
 * Gradle - [Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html)
 * Toolkit - [Jetpack Compose](https://developer.android.com/jetpack/compose)
 * Target Sdk - [Android 12](https://developer.android.com/about/versions/12)
 * Processing API - [KSP](https://github.com/google/ksp)
+* HTTP client - [Ktor](https://ktor.io/)
+* DI - [Hilt](https://dagger.dev/hilt/)
 
 # License
 
