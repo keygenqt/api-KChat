@@ -1,4 +1,4 @@
-package com.keygenqt.kchat.component
+package com.keygenqt.kchat.chat.component
 
 import io.ktor.http.cio.websocket.*
 import java.util.concurrent.atomic.AtomicInteger

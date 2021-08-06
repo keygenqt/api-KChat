@@ -5,9 +5,17 @@ KChat (backend)
 
 Chat using websocket for data transfer, consisting of 2 parts - **backend** and [client](https://github.com/keygenqt/android-KChat).
 
-### Back-end base info
+## Platform Architecture
+
+### Front-End
 * Framework - [Ktor](https://ktor.io/)
-* Protocol - [WebSocket](https://en.wikipedia.org/wiki/WebSocket)
+* Template -  [kotlinx.html](https://github.com/Kotlin/kotlinx.html)
+
+![picture](data/f-preview.png)
+
+### Back-End
+* Framework - [Ktor](https://ktor.io/)
+* Protocol - [WebSocket (chat)](https://en.wikipedia.org/wiki/WebSocket), [HTTP (REST API)](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
 * Data Base - [MySQL](https://www.mysql.com/)
 
 ### Client base info

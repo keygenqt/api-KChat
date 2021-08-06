@@ -21,6 +21,7 @@ val logbackVersion: String by project
 dependencies {
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-websockets:$ktorVersion")
+    implementation("io.ktor:ktor-html-builder:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
