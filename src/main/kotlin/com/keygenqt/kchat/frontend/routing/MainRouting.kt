@@ -13,11 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-package com.keygenqt.kchat.api.web
 
+package com.keygenqt.kchat.frontend.routing
+
+import com.keygenqt.kchat.common.util.Constants.PATH_STATIC_FRONTEND
+import io.ktor.http.content.*
 import io.ktor.routing.*
+import java.io.File
 
-fun Route.backend() {
+fun Route.frontendRoute() {
 
+    staticRootFolder = File(PATH_STATIC_FRONTEND)
+
+    // routing static
+    static("css") {
+        files("css")
+    }
+    static("js") {
+        files("js")
+    }
+    static("images") {
+        files("images")
+    }
+
+    // routing pages
+    indexRoute()
 }

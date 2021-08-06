@@ -6,6 +6,7 @@ pluginManagement {
     plugins {
         kotlin("jvm") version kotlinVersion
         id("com.diffplug.spotless") version spotlessVersion
+        kotlin("plugin.serialization") version kotlinVersion
     }
 }
 rootProject.name = "KChat"

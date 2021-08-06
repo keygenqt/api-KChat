@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.kchat
 
+import com.keygenqt.kchat.common.config.module
 import io.ktor.http.*
 import io.ktor.server.testing.*
 import kotlin.test.Test

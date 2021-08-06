@@ -6,3 +6,4 @@
 /build
 /app/build
 /keys/
+/src/main/resources/dbconfig.properties

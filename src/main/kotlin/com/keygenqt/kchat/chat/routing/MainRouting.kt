@@ -14,7 +14,7 @@
  * limitations under the License.
  */
  
-package com.keygenqt.kchat.chat.web
+package com.keygenqt.kchat.chat.routing
 
 import com.keygenqt.kchat.chat.component.Connection
 import io.ktor.http.cio.websocket.*
@@ -22,7 +22,7 @@ import io.ktor.routing.*
 import io.ktor.websocket.*
 import java.util.*
 
-fun Routing.chat() {
+fun Routing.chatRoute() {
     val connections = Collections.synchronizedSet<Connection?>(LinkedHashSet())
     webSocket("/chat") {
         println("Adding user!")

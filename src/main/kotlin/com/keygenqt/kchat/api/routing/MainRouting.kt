@@ -14,15 +14,12 @@
  * limitations under the License.
  */
  
-package com.keygenqt.kchat.frontend.config.routing
+package com.keygenqt.kchat.api.routing
 
-import com.keygenqt.kchat.frontend.views.site.index
-import io.ktor.application.*
-import io.ktor.html.*
 import io.ktor.routing.*
 
-fun Route.index() {
-    get("/") {
-        call.respondHtml { index() }
+fun Route.apiRoute() {
+    route("/api/v1") {
+        bookRoute()
     }
 }

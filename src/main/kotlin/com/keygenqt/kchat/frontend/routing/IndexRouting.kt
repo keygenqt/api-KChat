@@ -13,25 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-package com.keygenqt.kchat.frontend.config.routing
 
-import io.ktor.http.content.*
+package com.keygenqt.kchat.frontend.routing
+
+import com.keygenqt.kchat.frontend.views.site.index
+import io.ktor.application.*
+import io.ktor.html.*
 import io.ktor.routing.*
-import java.io.File
 
-fun Route.frontend() {
-    staticRootFolder = File("src/main/kotlin/com/keygenqt/kchat/frontend/web")
-    // routing static
-    static("css") {
-        files("css")
+fun Route.indexRoute() {
+    get("/") {
+        call.respondHtml { index() }
     }
-    static("js") {
-        files("js")
-    }
-    static("images") {
-        files("images")
-    }
-    // routing pages
-    index()
 }
