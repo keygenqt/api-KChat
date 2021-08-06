@@ -17,6 +17,7 @@ Chat completely built on kotlin Ktor [client](https://github.com/keygenqt/androi
 * Framework - [Ktor](https://ktor.io/)
 * Protocol - [WebSocket (chat)](https://en.wikipedia.org/wiki/WebSocket), [HTTP (REST API)](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
 * Data Base - [MySQL](https://www.mysql.com/)
+* Migration - [Flyway](https://flywaydb.org/)
 
 ### Android Client
 * HTTP client - [Ktor](https://ktor.io/)
