@@ -1,9 +1,9 @@
-KChat (backend)
+KChat (server)
 ===================
 
 ![picture](data/preview.png)
 
-Chat using websocket for data transfer, consisting of 2 parts - **backend** and [client](https://github.com/keygenqt/android-KChat).
+Chat completely built on kotlin Ktor [client](https://github.com/keygenqt/android-KChat) and server.
 
 ## Platform Architecture
 
