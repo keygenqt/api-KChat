@@ -12,8 +12,8 @@ Chat completely built on kotlin Ktor [client](https://github.com/keygenqt/androi
 * Protocol - [WebSocket (chat)](https://en.wikipedia.org/wiki/WebSocket), [HTTP (REST API)](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
 * Data Base - [MySQL](https://www.mysql.com/)
 * Migration - [Flyway](https://flywaydb.org/)
-* DI - [Koin](https://insert-koin.io/)
 * Template -  [kotlinx.html](https://github.com/Kotlin/kotlinx.html)
+* DI - [Koin](https://insert-koin.io/)
 
 ![picture](data/f-preview.png)
 
