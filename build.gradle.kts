@@ -1,6 +1,18 @@
 plugins {
     application
     kotlin("jvm")
+    id("com.diffplug.spotless")
+}
+
+spotless {
+    kotlin {
+        target("**/*.kt")
+        licenseHeaderFile("${project.projectDir}/spotless.license")
+    }
+    kotlinGradle {
+        target("*.gradle.kts")
+        ktlint()
+    }
 }
 
 group = "com.keygenqt.kchat"
