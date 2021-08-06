@@ -43,6 +43,7 @@ fun HTML.index() {
                                 li {
                                     +"Template - "
                                     a {
+                                        target = "_blank"
                                         href = "https://github.com/Kotlin/kotlinx.html"
                                         +"kotlinx.html"
                                     }
