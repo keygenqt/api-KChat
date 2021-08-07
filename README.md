@@ -13,7 +13,7 @@ Chat completely built on kotlin Ktor [client](https://github.com/keygenqt/androi
 * Data Base - [MySQL](https://www.mysql.com/)
 * Migration - [Flyway](https://flywaydb.org/)
 * Template -  [kotlinx.html](https://github.com/Kotlin/kotlinx.html)
-* Authentication - [Basic](https://ktor.io/docs/basic.html) + [Firebase Admin](https://firebase.google.com/docs/admin/setup)
+* Authorization - [Basic](https://ktor.io/docs/basic.html) + [Firebase Admin](https://firebase.google.com/docs/admin/setup)
 
 ![picture](data/f-preview.png)
 
