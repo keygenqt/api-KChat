@@ -16,6 +16,11 @@
  
 package com.keygenqt.kchat.common.config
 
+import com.google.auth.oauth2.GoogleCredentials
+import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.keygenqt.kchat.api.routing.apiRoute
 import com.keygenqt.kchat.chat.routing.chatRoute
 import com.keygenqt.kchat.common.di.moduleServicesDI
@@ -31,8 +36,39 @@ import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.websocket.*
 import org.koin.core.context.startKoin
+import java.io.FileInputStream
+
 
 fun Application.module() {
+
+    // firebase
+    val serviceAccount = FileInputStream("keys/kchat-b249c-firebase-adminsdk-nit6n-9ca11b0d0a.json")
+
+    val options = FirebaseOptions.builder()
+        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+        .build()
+
+    FirebaseApp.initializeApp(options)
+
+    try {
+
+        // check verifyIdToken
+        val idToken = "--> firebaseAuth.currentUser?.getIdToken(false)"
+        val decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken)
+
+        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        println("uid: ${decodedToken.uid}")
+        println("email: ${decodedToken.email}")
+        println("name: ${decodedToken.name}")
+        println("isEmailVerified: ${decodedToken.isEmailVerified}")
+        println("picture: ${decodedToken.picture}")
+        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+    } catch (ex: FirebaseAuthException) {
+        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        println("Failed authorization")
+        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    }
 
     // di
     startKoin {

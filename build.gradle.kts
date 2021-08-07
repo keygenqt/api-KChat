@@ -35,6 +35,7 @@ val exposedVersion: String by project
 val logbackVersion: String by project
 val hikariCpVersion: String by project
 val mysqlConnectorVersion: String by project
+val firebaseAdminVersion: String by project
 
 dependencies {
     // ktor
@@ -54,6 +55,7 @@ dependencies {
     // other
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("org.flywaydb:flyway-core:$flywayVersion")
+    implementation("com.google.firebase:firebase-admin:$firebaseAdminVersion")
 
     // db
     implementation("mysql:mysql-connector-java:$mysqlConnectorVersion")
