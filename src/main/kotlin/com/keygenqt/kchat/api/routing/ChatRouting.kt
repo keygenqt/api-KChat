@@ -16,8 +16,8 @@
  
 package com.keygenqt.kchat.api.routing
 
-import com.keygenqt.kchat.common.db.models.NewBook
-import com.keygenqt.kchat.common.service.BookService
+import com.keygenqt.kchat.common.db.models.NewChat
+import com.keygenqt.kchat.common.service.ChatService
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.request.*
@@ -26,38 +26,38 @@ import io.ktor.routing.*
 import org.koin.ktor.ext.inject
 
 
-fun Route.bookRoute() {
+fun Route.chatRoute() {
 
-    val bookService: BookService by inject()
+    val service: ChatService by inject()
 
-    route("/book") {
+    route("/chats") {
 
         get {
-            call.respond(bookService.getAllBooks())
+            call.respond(service.getAllChats())
         }
 
         get("/{id}") {
             val id = call.parameters["id"]?.toInt() ?: throw IllegalStateException("Must provide id")
-            val book = bookService.getBook(id)
-            if (book == null) call.respond(HttpStatusCode.NotFound)
-            else call.respond(book)
+            val chat = service.getChat(id)
+            if (chat == null) call.respond(HttpStatusCode.NotFound)
+            else call.respond(chat)
         }
 
         post {
-            val book = call.receive<NewBook>()
-            call.respond(HttpStatusCode.Created, bookService.addBook(book))
+            val chat = call.receive<NewChat>()
+            call.respond(HttpStatusCode.Created, service.addChat(chat))
         }
 
         put {
-            val book = call.receive<NewBook>()
-            val updated = bookService.updateBook(book)
+            val chat = call.receive<NewChat>()
+            val updated = service.updateChat(chat)
             if (updated == null) call.respond(HttpStatusCode.NotFound)
             else call.respond(HttpStatusCode.OK, updated)
         }
 
         delete("/{id}") {
             val id = call.parameters["id"]?.toInt() ?: throw IllegalStateException("Must provide id")
-            val removed = bookService.deleteBook(id)
+            val removed = service.deleteChat(id)
             if (removed) call.respond(HttpStatusCode.OK)
             else call.respond(HttpStatusCode.NotFound)
         }

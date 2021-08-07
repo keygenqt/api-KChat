@@ -13,89 +13,89 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.kchat.common.service
 
 import com.keygenqt.kchat.common.config.DBConfig.dbQuery
 import com.keygenqt.kchat.common.db.ChangeType
 import com.keygenqt.kchat.common.db.Notification
-import com.keygenqt.kchat.common.db.models.Book
-import com.keygenqt.kchat.common.db.models.Books
-import com.keygenqt.kchat.common.db.models.NewBook
+import com.keygenqt.kchat.common.db.models.Chat
+import com.keygenqt.kchat.common.db.models.Chats
+import com.keygenqt.kchat.common.db.models.NewChat
 import org.jetbrains.exposed.sql.*
 
-class BookService {
+class ChatService {
 
-    private val listeners = mutableMapOf<Int, suspend (Notification<Book?>) -> Unit>()
+    private val listeners = mutableMapOf<Int, suspend (Notification<Chat?>) -> Unit>()
 
-    fun addChangeListener(id: Int, listener: suspend (Notification<Book?>) -> Unit) {
+    fun addChangeListener(id: Int, listener: suspend (Notification<Chat?>) -> Unit) {
         listeners[id] = listener
     }
 
     fun removeChangeListener(id: Int) = listeners.remove(id)
 
-    private suspend fun onChange(type: ChangeType, id: Int, entity: Book? = null) {
+    private suspend fun onChange(type: ChangeType, id: Int, entity: Chat? = null) {
         listeners.values.forEach {
             it.invoke(Notification(type, id, entity))
         }
     }
 
-    suspend fun getAllBooks(): List<Book> = dbQuery {
-        Books.selectAll().map { toBook(it) }
+    suspend fun getAllChats(): List<Chat> = dbQuery {
+        Chats.selectAll().map { toChat(it) }
     }
 
-    suspend fun getBook(id: Int): Book? = dbQuery {
-        Books.select {
-            (Books.id eq id)
-        }.mapNotNull { toBook(it) }
+    suspend fun getChat(id: Int): Chat? = dbQuery {
+        Chats.select {
+            (Chats.id eq id)
+        }.mapNotNull { toChat(it) }
             .singleOrNull()
     }
 
-    suspend fun updateBook(Book: NewBook): Book? {
-        val id = Book.id
+    suspend fun updateChat(Chat: NewChat): Chat? {
+        val id = Chat.id
         return if (id == null) {
-            addBook(Book)
+            addChat(Chat)
         } else {
             dbQuery {
-                Books.update({ Books.id eq id }) {
-                    it[title] = Book.title
-                    it[author] = Book.author
+                Chats.update({ Chats.id eq id }) {
+                    it[userId] = Chat.userId
+                    it[name] = Chat.name
                     it[dateUpdated] = System.currentTimeMillis()
                 }
             }
-            getBook(id).also {
+            getChat(id).also {
                 onChange(ChangeType.UPDATE, id, it)
             }
         }
     }
 
-    suspend fun addBook(Book: NewBook): Book {
+    suspend fun addChat(Chat: NewChat): Chat {
         var key = 0
         dbQuery {
-            key = (Books.insert {
-                it[title] = Book.title
-                it[author] = Book.author
+            key = (Chats.insert {
+                it[userId] = Chat.userId
+                it[name] = Chat.name
                 it[dateUpdated] = System.currentTimeMillis()
-            } get Books.id)
+            } get Chats.id)
         }
-        return getBook(key)!!.also {
+        return getChat(key)!!.also {
             onChange(ChangeType.CREATE, key, it)
         }
     }
 
-    suspend fun deleteBook(id: Int): Boolean {
+    suspend fun deleteChat(id: Int): Boolean {
         return dbQuery {
-            Books.deleteWhere { Books.id eq id } > 0
+            Chats.deleteWhere { Chats.id eq id } > 0
         }.also {
             if (it) onChange(ChangeType.DELETE, id)
         }
     }
 
-    private fun toBook(row: ResultRow): Book =
-        Book(
-            id = row[Books.id],
-            title = row[Books.title],
-            author = row[Books.author],
-            dateUpdated = row[Books.dateUpdated]
+    private fun toChat(row: ResultRow): Chat =
+        Chat(
+            id = row[Chats.id],
+            userId = row[Chats.userId],
+            name = row[Chats.name],
+            dateUpdated = row[Chats.dateUpdated]
         )
 }

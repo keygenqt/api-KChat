@@ -13,31 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.kchat.common.db.models
 
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
-object Books : Table() {
+object Chats : Table() {
     val id = integer("id").autoIncrement()
-    val title = varchar("title", 255)
-    val author = varchar("author", 255)
+    val userId = varchar("userId", 255)
+    val name = varchar("author", 255)
     val dateUpdated = long("dateUpdated")
     override val primaryKey = PrimaryKey(id)
 }
 
 @Serializable
-data class Book(
+data class Chat(
     val id: Int,
-    val title: String,
-    val author: String,
+    val userId: String,
+    val name: String,
     val dateUpdated: Long
 )
 
 @Serializable
-data class NewBook(
+data class NewChat(
     val id: Int?,
-    val title: String,
-    val author: String
+    val userId: String,
+    val name: String
 )

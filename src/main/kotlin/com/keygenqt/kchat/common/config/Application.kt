@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.kchat.common.config
 
 import com.google.auth.oauth2.GoogleCredentials
@@ -29,6 +29,7 @@ import com.keygenqt.kchat.common.util.JsonMapper
 import com.keygenqt.kchat.frontend.routing.frontendRoute
 import com.keygenqt.kchat.frontend.views.site.error404
 import io.ktor.application.*
+import io.ktor.auth.*
 import io.ktor.features.*
 import io.ktor.html.*
 import io.ktor.http.*
@@ -49,26 +50,6 @@ fun Application.module() {
         .build()
 
     FirebaseApp.initializeApp(options)
-
-    try {
-
-        // check verifyIdToken
-        val idToken = "--> firebaseAuth.currentUser?.getIdToken(false)"
-        val decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken)
-
-        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        println("uid: ${decodedToken.uid}")
-        println("email: ${decodedToken.email}")
-        println("name: ${decodedToken.name}")
-        println("isEmailVerified: ${decodedToken.isEmailVerified}")
-        println("picture: ${decodedToken.picture}")
-        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-
-    } catch (ex: FirebaseAuthException) {
-        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        println("Failed authorization")
-        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    }
 
     // di
     startKoin {
@@ -91,12 +72,28 @@ fun Application.module() {
     install(WebSockets)
     install(StatusPages) {
         status(HttpStatusCode.NotFound) {
-            call.respondHtml { error404() }
+            call.respondHtml(status = HttpStatusCode.NotFound) { error404() }
+        }
+    }
+    install(Authentication) {
+        basic("firebase-token") {
+            realm = "Access FirebaseAuth"
+            validate { credentials ->
+                try {
+                    FirebaseAuth.getInstance().verifyIdToken(credentials.name)?.let {
+                        UserIdPrincipal(it.uid)
+                    }
+                } catch (ex: Exception) {
+                    null
+                }
+            }
         }
     }
     install(Routing) {
+        authenticate("firebase-token") {
+            apiRoute()
+        }
         frontendRoute()
         chatRoute()
-        apiRoute()
     }
 }
