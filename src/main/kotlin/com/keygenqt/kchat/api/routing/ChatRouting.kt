@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.kchat.api.routing
 
+import com.keygenqt.kchat.common.base.ResponseError
 import com.keygenqt.kchat.common.db.models.NewChat
 import com.keygenqt.kchat.common.service.ChatService
 import io.ktor.application.*
@@ -23,6 +24,7 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.koin.ktor.ext.inject
 
 
@@ -47,7 +49,14 @@ fun Route.chatRoute() {
 
         post {
             val chat = call.receive<NewChat>()
-            call.respond(HttpStatusCode.Created, service.addChat(chat))
+            try {
+                call.respond(HttpStatusCode.Created, service.addChat(chat))
+            } catch (ex: ExposedSQLException) {
+                call.respond(
+                    status = HttpStatusCode.UnprocessableEntity,
+                    message = ResponseError(ex.message ?: "Unprocessable Entity")
+                )
+            }
         }
 
         put {

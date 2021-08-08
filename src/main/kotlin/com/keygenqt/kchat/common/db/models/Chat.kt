@@ -22,7 +22,7 @@ import org.jetbrains.exposed.sql.Table
 object Chats : Table() {
     val id = integer("id").autoIncrement()
     val userId = varchar("userId", 255)
-    val name = varchar("author", 255)
+    val name = varchar("name", 255).uniqueIndex()
     val dateUpdated = long("dateUpdated")
     override val primaryKey = PrimaryKey(id)
 }
@@ -37,7 +37,7 @@ data class Chat(
 
 @Serializable
 data class NewChat(
-    val id: Int?,
+    val id: Int? = null,
     val userId: String,
     val name: String
 )
