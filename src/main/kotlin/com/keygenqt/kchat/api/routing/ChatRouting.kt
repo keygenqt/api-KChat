@@ -33,7 +33,9 @@ fun Route.chatRoute() {
     route("/chats") {
 
         get {
-            call.respond(service.getAllChats())
+            val limit = call.parameters["limit"]?.toIntOrNull() ?: 5
+            val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
+            call.respond(service.getAllChats(limit, offset))
         }
 
         get("/{id}") {

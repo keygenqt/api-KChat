@@ -40,8 +40,8 @@ class ChatService {
         }
     }
 
-    suspend fun getAllChats(): List<Chat> = dbQuery {
-        Chats.selectAll().map { toChat(it) }
+    suspend fun getAllChats(limit: Int, offset: Int): List<Chat> = dbQuery {
+        Chats.selectAll().limit(limit, offset.toLong()).map { toChat(it) }
     }
 
     suspend fun getChat(id: Int): Chat? = dbQuery {
