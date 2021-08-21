@@ -43,7 +43,7 @@ class ChatService {
     suspend fun getAllChats(limit: Int, offset: Int, search: String?): List<Chat> = dbQuery {
         Chats.let {
             search?.let { search -> it.select { Chats.name like "%$search%" } } ?: it.selectAll()
-        }.limit(limit, offset.toLong()).map { toChat(it) }
+        }.orderBy(Chats.id, SortOrder.DESC).limit(limit, offset.toLong()).map { toChat(it) }
     }
 
     suspend fun getChat(id: Int): Chat? = dbQuery {
